@@ -1,11 +1,8 @@
 package com;
 
-import com.lt.ecommerce.controller.DeliveryAgentController;
-import com.lt.ecommerce.controller.SellerController;
 import com.lt.ecommerce.controller.ShopController;
 import com.lt.ecommerce.controller.UserController;
 import com.lt.ecommerce.service.OrderService;
-import com.lt.ecommerce.service.ProductService;
 
 import java.util.Scanner;
 

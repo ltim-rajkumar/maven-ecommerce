@@ -16,24 +16,12 @@ public class UserService {
     public void createUser() {
         User user = new User();
         user.setUserType(this.userType);
-
         String userByType = this.getUserType(this.userType);
-
-        System.out.println("Enter "+userByType+" id: ");
-        user.setId(Integer.parseInt(scanner.nextLine()));
-
-        System.out.println("Enter "+userByType+" first name");
-        user.setFirstName(scanner.nextLine());
-
-        System.out.println("Enter "+userByType+" last name");
-        user.setLastName(scanner.nextLine());
-
-        System.out.println("Enter "+userByType+" mobile number");
-        user.setMobileNo(Integer.parseInt(scanner.nextLine()));
-
-        System.out.println("Enter "+userByType+" address");
-        user.setAddress(scanner.nextLine());
-
+        user.setId(1);
+        user.setFirstName("Jay");
+        user.setLastName("Kumar");
+        user.setMobileNo(991199001);
+        user.setAddress("Pune");
         userRepository.addUser(user);
         System.out.println(userByType.toUpperCase() + " created!!!");
     }

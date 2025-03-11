@@ -1,5 +1,4 @@
 package com.lt.ecommerce.controller;
-import com.lt.ecommerce.service.ShopService;
 
 import java.util.Scanner;
 
