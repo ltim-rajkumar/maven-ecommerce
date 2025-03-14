@@ -3,11 +3,12 @@ package com.lt.ecommerce.controller;
 import com.lt.ecommerce.service.UserService;
 import com.lt.ecommerce.util.UserInput;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserController {
     private final static Scanner scanner = new Scanner(System.in);
-    public void run() {
+    public void run() throws SQLException {
         int option = 0;
         do {
             System.out.println("---Choose user operation---");

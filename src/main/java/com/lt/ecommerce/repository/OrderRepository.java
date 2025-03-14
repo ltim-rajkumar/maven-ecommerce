@@ -15,23 +15,23 @@ public class OrderRepository {
         return orderMap.get(orderId);
     }
 
-    public Map<Integer, Order> getAllOrder() {
+    public Map<Integer, Order> getAllOrders() {
         return orderMap;
     }
 
-    public void deleteOrder(int orderId) {
-        orderMap.remove(orderId);
+    public Order deleteOrder(int orderId) {
+        return orderMap.remove(orderId);
     }
 
     public void deleteAllOrders() {
         orderMap.clear();
     }
 
-    public int getOrderSize() {
+    public int getOrdersSize() {
         return orderMap.size();
     }
 
-    public boolean containOrder(int orderId) {
+    public boolean containsOrder(int orderId) {
         return orderMap.containsKey(orderId);
     }
 

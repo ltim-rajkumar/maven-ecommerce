@@ -1,5 +1,7 @@
 package com.lt.ecommerce.repository;
 
+import com.lt.ecommerce.model.Shop;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,6 +27,7 @@ public class ShopRepository {
     public void removeAllShops() {
         shopMap.clear();
     }
+
     public int getShopsSize() {
         return shopMap.size();
     }

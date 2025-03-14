@@ -24,7 +24,11 @@ public class ProductRepository {
         return null;
     }
 
-    public boolean deleteProduct(int productId) {
+    public int getProductsSize() {
+        return productMap.size();
+    }
+
+    public boolean removeProduct(int productId) {
         if(this.containsProduct(productId)) {
             productMap.remove(productId);
             return true;
@@ -33,13 +37,12 @@ public class ProductRepository {
         return false;
     }
 
-    public boolean deleteAllProducts() {
+    public void removeAllProducts() {
         if(!productMap.isEmpty()) {
             productMap.clear();
-            return true;
+            return;
         }
         System.out.println("Product's not found to delete !!!");
-        return false;
     }
 
     public boolean containsProduct(int productId) {

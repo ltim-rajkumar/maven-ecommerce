@@ -1,47 +1,47 @@
 package com.lt.ecommerce.controller;
 
-import com.lt.ecommerce.service.ShopService;
+import com.lt.ecommerce.service.ProductService;
 
 import java.util.Scanner;
 
-public class ShopController {
+public class ProductController {
     private static final Scanner scanner = new Scanner(System.in);
 
     public void run() {
         int option;
         do {
-            System.out.println("---Choose shop option---");
-            System.out.println("1 Create shop");
-            System.out.println("2 Get shop");
-            System.out.println("3 Display all shops");
-            System.out.println("4 Remove shop");
-            System.out.println("5 Remove all shops");
+            System.out.println("---Choose order option---");
+            System.out.println("1 Create order");
+            System.out.println("2 Get order");
+            System.out.println("3 Display all orders");
+            System.out.println("4 Remove order");
+            System.out.println("5 Remove all orders");
             System.out.println("---------------------------");
             System.out.println("9 Go to main menu");
             option = Integer.parseInt(scanner.nextLine());
 
-            ShopService shopService = new ShopService();
+            ProductService orderService = new ProductService();
             switch (option) {
                 case 1: {
-                    shopService.createShop();
+                    orderService.createProduct();
                     break;
                 }
                 case 2: {
                     System.out.println("Enter shop id: ");
-                    shopService.getShop(Integer.parseInt(scanner.nextLine()));
+                    orderService.getProduct(Integer.parseInt(scanner.nextLine()));
                     break;
                 }
                 case 3: {
-                    shopService.displayAllShops();
+                    orderService.displayAllProducts();
                     break;
                 }
                 case 4: {
                     System.out.println("Enter shop id to remove: ");
-                    shopService.removeShop(Integer.parseInt(scanner.nextLine()));
+                    orderService.removeProduct(Integer.parseInt(scanner.nextLine()));
                     break;
                 }
                 case 5: {
-                    shopService.removeAllShops();
+                    orderService.removeAllProducts();
                     break;
                 }
             }

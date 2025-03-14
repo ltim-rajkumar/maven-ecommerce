@@ -2,6 +2,7 @@ package com.lt.ecommerce.service;
 import com.lt.ecommerce.model.User;
 import com.lt.ecommerce.repository.UserRepository;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class UserService {
@@ -13,7 +14,7 @@ public class UserService {
         this.userType = userType;
     }
 
-    public void createUser() {
+    public void createUser() throws SQLException {
         User user = new User();
         user.setUserType(this.userType);
         String userByType = this.getUserType(this.userType);
@@ -22,8 +23,8 @@ public class UserService {
         user.setLastName("Kumar");
         user.setMobileNo(991199001);
         user.setAddress("Pune");
-        userRepository.addUser(user);
-        System.out.println(userByType.toUpperCase() + " created!!!");
+        boolean isUserAdded = userRepository.addUser(user);
+        System.out.println(userByType.toUpperCase() + (isUserAdded ? " created!!!" : "Failed to create"));
     }
 
     private String getUserType(int userType) {
