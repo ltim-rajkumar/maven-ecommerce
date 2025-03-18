@@ -16,4 +16,5 @@ public class User {
     private int mobileNo;
     private String address;
     private int userType;
+    private String createdAt;
 }

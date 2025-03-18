@@ -5,7 +5,9 @@ import com.lt.ecommerce.service.ConnectionService;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserRepository {
@@ -22,7 +24,6 @@ public class UserRepository {
     }
 
     public boolean addUser(User user) throws SQLException {
-//        userMap.put(user.getId(), user);
         this.initConnection();
         String query = "INSERT INTO users VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -42,23 +43,100 @@ public class UserRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            connection.close();
+        }
         return false;
     }
 
-    public User getUser(int userId) {
-        return userMap.get(userId);
+    public User getUser(int userId) throws SQLException {
+        this.initConnection();
+        String query = "SELECT * FROM users WHERE id = ? ";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            User user = new User();
+            while (resultSet.next()) {
+                user.setId(resultSet.getInt(1));
+                user.setFirstName(resultSet.getString(2));
+                user.setLastName(resultSet.getString(3));
+                user.setMobileNo(resultSet.getInt(4));
+                user.setAddress(resultSet.getString(5));
+                user.setUserType(resultSet.getInt(6));
+                user.setCreatedAt(resultSet.getString(7));
+            }
+            return user;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            connection.close();
+        }
+        return null;
     }
 
-    public User removeUser(int userId) {
-        return userMap.remove(userId);
+    public ArrayList<User> getAllUsers() throws SQLException {
+        this.initConnection();
+        ArrayList<User> users = new ArrayList<>();
+        String query = "SELECT * FROM users;";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                User user = new User();
+                user.setId(resultSet.getInt(1));
+                user.setFirstName(resultSet.getString(2));
+                user.setLastName(resultSet.getString(3));
+                user.setMobileNo(resultSet.getInt(4));
+                user.setAddress(resultSet.getString(5));
+                user.setUserType(resultSet.getInt(6));
+                user.setCreatedAt(resultSet.getString(7));
+                users.add(user);
+            }
+            return users;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            connection.close();
+        }
+        return users;
     }
 
-    public Map<Integer, User> getAllUsers() {
-        return userMap;
+    public boolean removeUser(int userId) throws SQLException {
+        this.initConnection();
+        String query = "DELETE FROM users WHERE id = ? ";
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, userId);
+            int isDelete =  preparedStatement.executeUpdate();
+            return isDelete > 0;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            connection.close();
+        }
+        return false;
     }
 
-    public void removeAllUsers() {
-        userMap.clear();
+    public boolean removeAllUsers() throws SQLException {
+        this.initConnection();
+        String query = "DELETE FROM users;";
+
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            int isDelete =  preparedStatement.executeUpdate();
+            return isDelete > 0;
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        finally {
+            connection.close();
+        }
+        return false;
     }
 
     public int getUsersSize() {

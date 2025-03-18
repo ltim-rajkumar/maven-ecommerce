@@ -3,6 +3,7 @@ import com.lt.ecommerce.model.User;
 import com.lt.ecommerce.repository.UserRepository;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UserService {
@@ -36,42 +37,41 @@ public class UserService {
         };
     }
 
-    public void displayAllUsers() {
-        String userByType = this.getUserType(this.userType);
-        if(userRepository.getUsersSize() > 0) {
-            userRepository.getAllUsers().forEach((userId, user) -> {
-                System.out.println(userByType + "Id: " + userId + " " + userByType + ": " + user);
+    public void displayAllUsers() throws SQLException {
+        ArrayList<User> users = (ArrayList<User>) userRepository.getAllUsers();
+        if (users != null && users.size() > 0) {
+            users.stream().forEach(user -> {
+                System.out.println("User details = " + user.toString());
             });
         } else {
-            System.out.println("No " + userByType+ "'s found to display!!");
+           System.out.println("User's not found to display !!!");
         }
     }
 
-    public void getUser(int userId) {
-        String userByType = this.getUserType(this.userType).toUpperCase();
-        if(userRepository.containsUser(userId)) {
-            System.out.println(userByType + " details = " + userRepository.getUser(userId));
+    public void getUser(int userId) throws SQLException {
+        User user = userRepository.getUser(userId);
+        if (user != null && user.getId() != 0) {
+            System.out.println("User details = " + user.toString());
         } else {
-            System.out.println(userByType + " id : " + userId + " does not exits!!!");
+            System.out.println("User id : " + userId + " does not exits!!!");
         }
     }
 
-    public void removeUser(int userId) {
-        String userByType = this.getUserType(this.userType);
-        if(userRepository.containsUser(userId)) {
-            System.out.println("Removed " + userByType + " details = " + userRepository.removeUser(userId));
+    public void removeUser(int userId) throws SQLException {
+        boolean isUserDeleted = userRepository.removeUser(userId);
+        if(isUserDeleted) {
+            System.out.println("Removed  details = " + isUserDeleted);
         } else {
-            System.out.println("No " + userByType+ "'s found to remove!!");
+            System.out.println("User not found !!!");
         }
     }
 
-    public void removeAllUsers() {
-        String userByType = this.getUserType(this.userType);
-        if(userRepository.getUsersSize() > 0) {
-            userRepository.removeAllUsers();
-            System.out.println("Removed all " + userByType + "'s");
+    public void removeAllUsers() throws SQLException {
+        boolean isUserDeleted = userRepository.removeAllUsers();
+        if(isUserDeleted) {
+            System.out.println("Removed  details = " + isUserDeleted);
         } else {
-            System.out.println("No " + userByType+ "'s found to remove!!");
+            System.out.println("User's not found !!!");
         }
     }
 
